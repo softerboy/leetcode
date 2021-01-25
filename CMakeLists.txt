@@ -3,4 +3,4 @@ project(leetcode_problems C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(leetcode_problems main.c)
+add_subdirectory(00001_two_sum)
