@@ -40,6 +40,15 @@ struct ListNode *add(int val1, int val2, int *carry) {
   return n;
 }
 
+/**
+ * Complexity Analysis
+ * Time complexity : O(max(m, n)).
+ * Assume that m and n represents the length of l1 and l2 respectively,
+ * the algorithm above iterates at most max(m,n) times.
+ *
+ * Space complexity : O(max(m,n)).
+ * The length of the new list is at most max(m,n) + 1.
+ */
 struct ListNode *addTwoNumbers(struct ListNode *l1, struct ListNode *l2) {
   struct ListNode *sentinel = create_node(-1);
 
@@ -78,7 +87,7 @@ struct ListNode *push_back(struct ListNode *tail, struct ListNode *node) {
 
 void clear(struct ListNode *node) {
   while (node) {
-    struct ListNode* temp = node;
+    struct ListNode *temp = node;
     node = node->next;
     free(temp);
   }
@@ -94,7 +103,7 @@ void solve() {
   int num_cases, n1, n2, n3, val;
   fscanf(file, "%d", &num_cases);
 
-  for (int i = 1; i <= num_cases ; ++i) {
+  for (int i = 1; i <= num_cases; ++i) {
 
     struct ListNode *sentiel1 = create_node(-1);
     struct ListNode *sentiel2 = create_node(-1);
