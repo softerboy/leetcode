@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #define SIZE 1000
 
@@ -9,22 +10,17 @@ typedef struct node {
   struct node *next;
 } node;
 
+void solve();
 int hash(int key);
 int absolute(int value);
 node *new_node(int key, int value);
 node *find(node *hashtable[], int key);
-void solve(int *nums, int numSize, int target);
+int array_has(int *array, int len, int val);
 void insert(node *hashtable[], int key, int value);
 int *twoSum(int *nums, int numsSize, int target, int *returnSize);
 
 int main() {
-  int nums1[] = {2, 7, 11, 15}, numSize1 = 4, target1 = 9;
-  int nums2[] = {3, 2, 4}, numSize2 = 3, target2 = 6;
-  int nums3[] = {3, 3}, numSize3 = 2, target3 = 6;
-
-  solve(nums1, numSize1, target1);
-  solve(nums2, numSize2, target2);
-  solve(nums3, numSize3, target3);
+  solve();
 
   return 0;
 }
@@ -103,14 +99,40 @@ int *twoSum(int *nums, int numsSize, int target, int *returnSize) {
   return NULL;
 }
 
-void solve(int *nums, int numSize, int target) {
-  int returnSize = 0;
-  int *res = twoSum(nums, numSize, target, &returnSize);
+void solve() {
+  FILE *file = fopen("test.txt", "r");
 
-  for (int i = 0; i < returnSize; ++i) {
-    printf("%d ", res[i]);
+  if (!file) {
+    fprintf(stderr, "fopen error\n");
+    exit(1);
   }
-  printf("\n");
 
-  free(res);
+  int return_size, num_cases, nums_size, target, val;
+  fscanf(file, "%d", &num_cases);
+
+  for (int i = 0; i < num_cases; ++i) {
+    fscanf(file, "%d%d", &nums_size, &target);
+    int *nums = malloc(nums_size * sizeof(int));
+    for (int j = 0; j < nums_size; ++j) {
+      fscanf(file, "%d", &val);
+      nums[j] = val;
+    }
+
+    int *res = twoSum(nums, nums_size, target, &return_size);
+    for (int j = 0; j < return_size; ++j) {
+      fscanf(file, "%d", &val);
+      assert(array_has(res, return_size, val));
+    }
+
+    printf("Test case %d PASSED\n", i + 1);
+    free(res);
+  }
+}
+
+int array_has(int *array, int len, int val) {
+  for (int i = 0; i < len; ++i) {
+    if (array[i] == val) return 1;
+  }
+
+  return 0;
 }
