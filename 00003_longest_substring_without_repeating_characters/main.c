@@ -1,15 +1,8 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include <assert.h>
 
 void solve();
 int lengthOfLongestSubstring(char *s);
-
-void reset_hashtable(int hashtable[], int len) {
-  for (int i = 0; i < len; ++i)
-    hashtable[i] = 0;
-}
 
 void solve() {
   FILE *file = fopen("test.txt", "r");
