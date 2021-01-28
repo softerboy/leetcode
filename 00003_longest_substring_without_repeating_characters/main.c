@@ -32,6 +32,11 @@ void solve() {
   fclose(file);
 }
 
+/**
+ * Complexity Analysis
+ * Time complexity : O(n). Index j will iterate n times.
+ * Space complexity (Table): O(m). m is the size of the charset.
+ */
 int lengthOfLongestSubstring(char *s) {
   int hashtable[256] = {-1};
   int maxlen = 0;
