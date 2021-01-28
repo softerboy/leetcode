@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX(a, b) (((a)>(b))?(a):(b))
+
 void solve();
 int lengthOfLongestSubstring(char *s);
 
@@ -31,25 +33,21 @@ void solve() {
 }
 
 int lengthOfLongestSubstring(char *s) {
-  int hashtable[256] = {0};
-  int curr, max = 0, i, j, k;
-  for (i = 0; s[i] != '\0'; i++) {
-    curr = 0;
-    for (j = i; s[j] != '\0' && hashtable[s[j]] < 1; ++j) {
-      hashtable[s[j]]++;
-      curr++;
-    }
+  int hashtable[256] = {-1};
+  int maxlen = 0;
 
-    // reset only busy hashtable cells
-    for (k = i; k < j; ++k) {
-      hashtable[s[k]] = 0;
-    }
+  int right = 0, left = 0;
+  while (s[right] != '\0') {
+    if (hashtable[s[right]] != -1)
+      left = MAX(hashtable[s[right]], left);
 
-    if (curr > max)
-      max = curr;
+    maxlen = MAX(maxlen, right - left + 1);
+    hashtable[s[right]] = right + 1;
+
+    right++;
   }
 
-  return max;
+  return maxlen;
 }
 
 int main() {
