@@ -4,6 +4,7 @@
 
 void solve();
 char *intToRoman(int num);
+char *intToRoman2(int num);
 
 int main() {
   solve();
@@ -20,7 +21,7 @@ int main() {
  *  Space Complexity: O([num / 1000] + 12 + 1)
  *    Room for each character in roman number plus null terminator
  */
-char *intToRoman(int num) {
+char *intToRoman2(int num) {
   // max possible roman number length for
   // problem constraints corresponds to
   // MMMDCCCLXXXVIII (3333 in decimal)
@@ -100,9 +101,29 @@ char *intToRoman(int num) {
     }
   }
 
-  roman[i] = '\0';
-
   return roman;
+}
+
+/**
+ * Time Complexity: same as above
+ * Space Complexity: same as above
+ */
+char *intToRoman(int num) {
+  char *result = malloc(17 * sizeof(char));
+
+  int decimal[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+  char *roman[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+  int len = 0;
+  for (int i = 0; i < 13; ++i) {
+    for (int j = 0; j < num / decimal[i]; ++j)
+      for (int k = 0; roman[i][k] != '\0'; ++k)
+        result[len++] = roman[i][k];
+    num %= decimal[i];
+  }
+
+  result[len] = '\0';
+  return result;
 }
 
 void solve() {
