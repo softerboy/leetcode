@@ -4,14 +4,14 @@
 void run_tests();
 int is_arrays_equal(int *arr1, int *arr2, int len);
 void read_into_array(int *arr, int len, FILE *file);
-int *intersection(int *nums1, int nums1Size, int *nums2, int nums2Size, int *returnSize);
+int *intersect(int *nums1, int nums1Size, int *nums2, int nums2Size, int *returnSize);
 
 int main() {
   run_tests();
   return 0;
 }
 
-int *intersection(int *nums1, int nums1Size, int *nums2, int nums2Size, int *returnSize) {
+int *intersect(int *nums1, int nums1Size, int *nums2, int nums2Size, int *returnSize) {
   int freq_table[30] = {0};
   int size = nums1Size > nums2Size ? nums1Size : nums2Size;
   int *result = malloc(size * sizeof(int));
@@ -73,7 +73,7 @@ void run_tests() {
     fscanf(file, "%d", &expected_len);
     read_into_array(expected, expected_len, file);
 
-    output = intersection(input1, input_len1, input2, input_len2, &output_len);
+    output = intersect(input1, input_len1, input2, input_len2, &output_len);
     if (output_len != expected_len) {
       printf("Test case %d FAILED, sizes doesn't match\n", i);
       printf("  Output size %d, Expected size %d\n", output_len, expected_len);
